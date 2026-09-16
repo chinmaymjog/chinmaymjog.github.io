@@ -11,6 +11,11 @@ tags:
 - jenkins
 - hosting
 canonicalURL: ''
+cover:
+  image: "/images/building-a-shared-hosting-platform-on-azure/hero.jpg"
+  alt: "Server racks in a data center"
+  caption: "Photo by Stephen Phillips - Hostreviews.co.uk on Unsplash"
+  relative: false
 ---
 
 As part of a personal project, I built a shared hosting platform on

@@ -22,7 +22,7 @@ outputs:
 
 params:
   env: production
-  description: "Platform & Cloud Solutions Architect - notes on Kubernetes, Terraform, Azure, and building golden paths for developers."
+  description: "Platform & Cloud Solutions Architect - what I actually built, and the real bugs and tradeoffs I ran into along the way."
   author: Chinmay Jog
   defaultTheme: auto
   disableThemeToggle: false
@@ -44,8 +44,8 @@ params:
     Content: >
       Platform & Cloud Solutions Architect with 20+ years bridging legacy
       infrastructure and cloud-native ecosystems. I write about Kubernetes,
-      Terraform, Azure, and building golden paths for developers - mostly
-      notes from things I've actually built.
+      Terraform, and Azure - what I actually built, and the real bugs and
+      tradeoffs I ran into along the way.
 
   socialIcons:
     - name: github

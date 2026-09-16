@@ -13,8 +13,7 @@ tags:
 canonicalURL: ''
 cover:
   image: "/images/building-a-shared-hosting-platform-on-azure/hero.jpg"
-  alt: "Server racks in a data center"
-  caption: "Photo by Stephen Phillips - Hostreviews.co.uk on Unsplash"
+  alt: "A cPanel-style shared hosting control panel"
   relative: false
 ---
 

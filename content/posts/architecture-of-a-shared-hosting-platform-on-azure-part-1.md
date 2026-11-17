@@ -1,7 +1,7 @@
 ---
 title: Architecture of a Shared Hosting Platform on Azure — Part 1
 date: '2026-09-16T08:37:41.022186+05:30'
-draft: true
+draft: false
 description: The Hub-Spoke design behind the shared hosting platform - Front Door,
   Load Balancer, a Jumpbox, and where the data actually lives.
 tags:

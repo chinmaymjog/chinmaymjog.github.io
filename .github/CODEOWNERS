@@ -1,0 +1,6 @@
+# Merging to main publishes the site; all changes need the owner's review.
+*                  @chinmaymjog
+/.github/          @chinmaymjog
+/hugo.yaml         @chinmaymjog
+/layouts/          @chinmaymjog
+/content/          @chinmaymjog

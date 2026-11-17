@@ -11,15 +11,6 @@ from urllib.parse import unquote, urlparse
 
 public = Path(sys.argv[1] if len(sys.argv) > 1 else "public").resolve()
 base = sys.argv[2].rstrip("/") if len(sys.argv) > 2 else None
-# Known gaps, referenced by the PaperMod theme but not shipped in static/.
-# Remove an entry once the file is added.
-KNOWN_MISSING = {
-    "/apple-touch-icon.png",
-    "/favicon-16x16.png",
-    "/favicon-32x32.png",
-    "/favicon.ico",
-    "/safari-pinned-tab.svg",
-}
 errors = []
 
 for required in ("index.html", "sitemap.xml", "robots.txt", "404.html"):
@@ -46,8 +37,6 @@ def resolves(page: Path, ref: str) -> bool:
     if u.scheme or u.netloc or ref.startswith(("mailto:", "tel:", "data:", "javascript:")):
         return True  # external or non-file reference
     path = unquote(u.path)
-    if path in KNOWN_MISSING:
-        return True
     if not path:
         return True  # same-page anchor
     target = public / path.lstrip("/") if path.startswith("/") else (page.parent / path)

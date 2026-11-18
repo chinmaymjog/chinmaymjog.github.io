@@ -1,7 +1,7 @@
 ---
 title: Deploying Azure Infrastructure Using Terraform — Part 2
 date: '2026-11-17T19:03:25.085602+05:30'
-draft: true
+draft: false
 description: How the shared hosting platform is split into a Hub stack and a Platform
   stack in Terraform, how they find each other without hardcoded IDs, and the order
   to deploy them.

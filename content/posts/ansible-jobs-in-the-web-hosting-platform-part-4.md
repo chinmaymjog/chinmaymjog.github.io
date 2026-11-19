@@ -1,7 +1,7 @@
 ---
 title: Ansible Jobs in the Web Hosting Platform — Part 4
 date: '2026-11-19T09:03:44.814942+05:30'
-draft: true
+draft: false
 description: 'A tour of the Jenkins jobs and Ansible playbooks behind the shared hosting
   platform: server setup, site lifecycle, HTTP auth, certificates and backups.'
 tags:

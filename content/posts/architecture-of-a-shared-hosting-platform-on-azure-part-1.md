@@ -76,6 +76,10 @@ and storage cost just to try the platform, so the Terraform on this
 repo's `main` branch deploys a single environment. The `advanced`
 branch keeps the preprod/prod workspace split for anyone who wants it.
 
+![The original design: separate production and preproduction spokes with NetApp Files volumes](/images/architecture-of-a-shared-hosting-platform-on-azure-part-1/original-design.png)
+
+*The original design, with separate production and preproduction spokes and NetApp Files volumes. It also shows a GitLab CI/CD path, which is not part of this version.*
+
 Next up is deploying all of this with Terraform.
 
 **Repo**: [azure-vm-hosting-solution](https://github.com/chinmaymjog/azure-vm-hosting-solution)

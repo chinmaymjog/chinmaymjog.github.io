@@ -18,13 +18,12 @@ cover:
 ---
 
 As part of a personal project, I built a shared hosting platform on
-Azure. The goal was to support web hosting for PHP-based CMS platforms
-like WordPress - similar to traditional shared hosting, but fully
-automated and cloud-native.
+Azure. It hosts PHP-based CMS sites like WordPress, much like
+traditional shared hosting, but fully automated and cloud-native.
 
-## What I Set Out to Build
+## What I set out to build
 
-The requirements were simple to state, less simple to deliver:
+The requirements were easy to state and harder to deliver:
 
 - Host multiple websites on a LAMP-style stack
 - Support multiple PHP versions
@@ -33,20 +32,20 @@ The requirements were simple to state, less simple to deliver:
 - Integrate CI/CD for deployments
 - Provide monitoring and logging
 
-## What's Actually In the Platform
+## What's in the platform
 
-To keep it modular, I split the implementation into layers:
+I split the implementation into layers to keep it modular:
 
-- **Architecture**: a Hub-Spoke design - a shared management hub (Jenkins
-  jumpbox, Key Vault, backups) peered to a platform spoke running the
-  actual hosting VMs, with Azure Front Door and a Load Balancer in front
-- **Infrastructure provisioning** with Terraform
-- **Configuration management** with Ansible - Apache/PHP runtime setup
+- Architecture: a Hub-Spoke design with a shared management hub
+  (Jenkins jumpbox, Key Vault, backups) peered to a platform spoke that
+  runs the hosting VMs, with Azure Front Door and a Load Balancer in
+  front
+- Infrastructure provisioning with Terraform
+- Configuration management with Ansible, which sets up Apache and PHP
   across the compute fleet
-- **Jenkins** as the deployment and operations portal, running
-  Dockerized on the hub's jumpbox rather than as a separate managed
-  service
+- Jenkins as the deployment and operations portal. It runs Dockerized
+  on the hub's jumpbox instead of as a separate managed service
 
-I'll be publishing follow-ups covering each layer in more depth.
+Follow-up posts cover each layer in more depth.
 
 **Repo**: [azure-vm-hosting-solution](https://github.com/chinmaymjog/azure-vm-hosting-solution)

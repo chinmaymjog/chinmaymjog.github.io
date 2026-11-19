@@ -15,9 +15,8 @@ canonicalURL: ''
 
 In [Part 1](https://chinmaymjog.github.io/posts/architecture-of-a-shared-hosting-platform-on-azure-part-1/)
 I walked through the Hub-Spoke architecture behind the shared hosting
-platform. This post is about turning that design into Terraform: how the
-code is split, how the pieces find each other, and the order I deploy
-them in.
+platform. This post turns that design into Terraform: how the code is
+split, how the pieces find each other, and the order I deploy them in.
 
 The full source is in
 [azure-vm-hosting-solution](https://github.com/chinmaymjog/azure-vm-hosting-solution).
@@ -27,11 +26,11 @@ The full source is in
 The Terraform is split into two independent root modules, each with its
 own state file:
 
-- **`shared-hub`** - the management side: the Hub VNet, a Key Vault, the
+- `shared-hub` is the management side: the Hub VNet, a Key Vault, the
   backup storage (Azure Files Premium NFS), a shared SSH key, and the
   Jumpbox VM that later runs Jenkins and Ansible.
-- **`platform`** - the hosting side: the Spoke VNet, Azure Front Door
-  with a WAF policy, the public Load Balancer, the web VM fleet, MySQL
+- `platform` is the hosting side: the Spoke VNet, Azure Front Door with
+  a WAF policy, the public Load Balancer, the web VM fleet, MySQL
   Flexible Server, and the website storage (also Azure Files Premium
   NFS).
 
@@ -61,8 +60,8 @@ data "azurerm_resources" "hub_vault" {
 
 Both stacks derive resource group and VNet names from the same
 `project_name`, so that one variable is the only thing tying them
-together. The Platform also creates both halves of the VNet peering -
-including the Hub-to-Spoke side, inside the Hub's resource group - so
+together. The Platform also creates both halves of the VNet peering,
+including the Hub-to-Spoke side inside the Hub's resource group, so
 deploying a Spoke is a single `apply`.
 
 ## No secrets in `.env` for Terraform
@@ -110,27 +109,26 @@ so you can't accidentally open SSH to the world.
 
 ## What is public and what isn't
 
-It is worth being precise here, because the Terraform makes the answer
-less tidy than "only Front Door is public":
+The answer is less tidy than "only Front Door is public":
 
-- **Azure Front Door** is the intended entry point.
-- **The Load Balancer has a public IP.** Front Door's origin is that IP.
-  The compute subnet's NSG only allows ports 80/443 from the
+- Azure Front Door is the intended entry point.
+- The Load Balancer has a public IP, and Front Door's origin is that
+  IP. The compute subnet's NSG only allows ports 80/443 from the
   `AzureFrontDoor.Backend` service tag (plus the IP of whoever ran
   Terraform, for testing).
-- **The Jumpbox has a public IP** too, with SSH restricted to `my_ip`,
+- The Jumpbox has a public IP too, with SSH restricted to `my_ip`,
   key-only login and Fail2Ban on top.
-- **MySQL** is private, in a delegated subnet with a private DNS zone
+- MySQL is private, in a delegated subnet with a private DNS zone
   linked to both VNets.
-- **Storage accounts** use default-deny network rules, private
-  endpoints and private DNS, so the NFS shares are only reachable from
-  inside the VNets.
-- **The Key Vault** is default-deny, with access limited to the Hub
-  subnet and the Jumpbox's managed identity.
+- Storage accounts use default-deny network rules, private endpoints
+  and private DNS, so the NFS shares are only reachable from inside the
+  VNets.
+- The Key Vault is default-deny, with access limited to the Hub subnet
+  and the Jumpbox's managed identity.
 
-Also worth knowing: the WAF policy is created in `Detection` mode. It
-logs but does not block. Switch it to `Prevention` once you've watched
-the logs for false positives.
+The WAF policy is created in `Detection` mode. It logs but does not
+block. Switch it to `Prevention` once you've watched the logs for false
+positives.
 
 ## Deploying
 
@@ -147,7 +145,7 @@ Terraform 1.5 or newer and the Azure CLI are all you need.
 4. Download the generated SSH private key from Key Vault.
 5. `make infra-init` and `make infra-deploy` build the Platform.
 6. `make jenkins-sync` and `make jenkins-up` hand over to Ansible and
-   Jenkins - the subject of Part 3.
+   Jenkins, the subject of Part 3.
 
 The Hub has to come first, since the Platform looks up the Key Vault,
 SSH key and backup storage by tag and will fail to plan if they aren't
@@ -156,8 +154,8 @@ there.
 ## What's next
 
 At this point the infrastructure exists: a Jumpbox, a Load Balancer,
-the web VMs, MySQL, the NFS shares and Front Door. In Part 3 I'll cover
-Jenkins and Ansible - how the Jumpbox configures Apache and PHP on the
+the web VMs, MySQL, the NFS shares and Front Door. Part 3 covers
+Jenkins and Ansible: how the Jumpbox configures Apache and PHP on the
 fleet and mounts the shared storage.
 
 Source: [azure-vm-hosting-solution](https://github.com/chinmaymjog/azure-vm-hosting-solution)

@@ -16,13 +16,13 @@ canonicalURL: ''
 [Part 1](https://chinmaymjog.github.io/posts/architecture-of-a-shared-hosting-platform-on-azure-part-1/)
 covered the architecture and
 [Part 2](https://chinmaymjog.github.io/posts/deploying-azure-infrastructure-using-terraform-part-2/)
-the Terraform. This part is about what sits on top of that
+the Terraform. This part covers what sits on top of that
 infrastructure: a Jenkins instance that gives operators a click-and-run
-interface, with Ansible doing the real work underneath.
+interface, with Ansible doing the work underneath.
 
-The goal is simple. Operators should be able to add a website, toggle
-HTTP authentication or take a backup without SSHing into a web server.
-Jenkins is the front end; Ansible is the engine.
+Operators should be able to add a website, toggle HTTP authentication or
+take a backup without SSHing into a web server. Jenkins is the front end
+and Ansible is the engine.
 
 All the code is in
 [azure-vm-hosting-solution](https://github.com/chinmaymjog/azure-vm-hosting-solution).
@@ -45,22 +45,22 @@ Jenkins job wrapping each of them.
 
 ![Mermaid Diagram](/images/jenkins-ansible-automation-for-a-web-hosting-platform-part-3/mermaid_8195c3a52484.png)
 
-- **The Jumpbox** is the single entry point. Jenkins runs there in a
-  Docker container and is not exposed publicly; operators reach it
-  through an SSH tunnel to `localhost:8080`.
-- **Jenkins and Ansible share one image.** The Dockerfile starts from
+- The Jumpbox is the single entry point. Jenkins runs there in a Docker
+  container and is not exposed publicly; operators reach it through an
+  SSH tunnel to `localhost:8080`.
+- Jenkins and Ansible share one image. The Dockerfile starts from
   `jenkins/jenkins:lts`, installs the plugins from `plugins.txt`, and adds
   Ansible with `apt`. The `infra/ansible` directory is mounted into the
   container at `/etc/ansible`, so the playbooks Jenkins runs are the same
   files in the repo.
-- **Jenkins is configured as code.** Jenkins Configuration as Code
+- Jenkins is configured as code. Jenkins Configuration as Code
   (`casc.yaml`) defines the admin user, the security settings and the SSH
   credential Ansible uses. The jobs themselves are checked in as XML under
   `infra/jenkins/jobs`, so a fresh container comes up with everything in
   place and no setup wizard.
-- **Secrets are injected, not stored.** `make jenkins-up` passes the admin
+- Secrets are injected at start time. `make jenkins-up` passes the admin
   password and the SSH private key to the container as environment
-  variables at start time. Neither is written into the image or the repo.
+  variables, and neither is written into the image or the repo.
 
 ## From repo to running portal
 
@@ -76,15 +76,15 @@ platform stack, so the Ansible `hosts` file always matches the VMs that
 actually exist. That is what makes the playbooks safe to run against a
 fleet that changes size.
 
-## What an operator actually does
+## What an operator does
 
-Jobs live in two folders: **Hosting Management Portal** for day-to-day
-site work and **Administrative Tools** for server configuration and
-backups. To add a site the operator opens `site_add`, enters the domain,
-picks `html` or `php`, and for PHP picks a version. The PHP version list
-is not hardcoded: a cascading parameter reads
-`installed_php_versions.json`, which the server-configuration and PHP-install
-playbooks update after they run.
+Jobs live in two folders: Hosting Management Portal for day-to-day site
+work and Administrative Tools for server configuration and backups. To
+add a site the operator opens `site_add`, enters the domain, picks `html`
+or `php`, and for PHP picks a version. The PHP version list is not
+hardcoded: a cascading parameter reads `installed_php_versions.json`,
+which the server-configuration and PHP-install playbooks update after
+they run.
 
 The job runs the matching playbook across all web VMs at once. Before
 touching anything it validates the domain, and for PHP sites it fetches
@@ -105,19 +105,16 @@ ansible-playbook -i /etc/ansible/hosts /etc/ansible/playbooks/php_site_add.yml \
 
 ## Why this shape works
 
-- **Consistency.** A task runs the same way whether it is the first or the
-  fiftieth time, because Jenkins always calls the same playbook.
-- **Self-service without server access.** Teams use Jenkins; they do not
-  need SSH to the web VMs.
-- **Easy to extend.** A new capability is a new playbook plus a new job
-  definition in the repo.
-- **Reviewable.** Jenkins config, jobs and playbooks all go through Git
-  like the Terraform does.
+Jenkins always calls the same playbook, so a task runs the same way the
+first time and the fiftieth. Teams use Jenkins without needing SSH
+access to the web VMs. A new capability is a new playbook plus a new job
+definition in the repo, and Jenkins config, jobs and playbooks all go
+through Git like the Terraform does.
 
-One honest limitation: this is a single Jenkins instance on a single
-Jumpbox. That is a reasonable trade for this platform's size, and the
-decision is recorded in the repo's architecture notes along with the
-condition for revisiting it.
+One limitation: this is a single Jenkins instance on a single Jumpbox.
+That is a reasonable trade for this platform's size, and the decision is
+recorded in the repo's architecture notes along with the condition for
+revisiting it.
 
 ## What's next
 

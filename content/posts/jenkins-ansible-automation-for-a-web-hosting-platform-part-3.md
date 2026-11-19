@@ -1,7 +1,7 @@
 ---
 title: Jenkins + Ansible Automation for a Web Hosting Platform — Part 3
 date: '2026-11-18T19:03:45.654219+05:30'
-draft: true
+draft: false
 description: How a Dockerized Jenkins on the Jumpbox, configured as code, gives operators
   a click-and-run front end over Ansible playbooks for site onboarding and backups.
 tags:

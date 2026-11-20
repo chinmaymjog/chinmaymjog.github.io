@@ -85,7 +85,7 @@ Everything you'd tune lives in
 deliberately small so a first deploy doesn't burn money:
 
 ```hcl
-location             = "West Europe"
+location             = "East US 2"
 vm_count             = 2
 vm_size              = "Standard_B1s"
 vm_os_disk_size_gb   = 30

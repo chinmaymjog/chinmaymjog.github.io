@@ -1,7 +1,7 @@
 ---
 title: Building a Production-Grade Cloud Sandbox on Your Laptop
 date: '2026-11-20T17:46:05.462156+05:30'
-draft: true
+draft: false
 description: How I built CloudOps-Sandbox, a local cloud lab on Docker Compose with
   Traefik ingress, one PostgreSQL server and one folder per tool, and what I removed
   to keep it simple.

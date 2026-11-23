@@ -1,7 +1,7 @@
 ---
 title: Auditing Azure RBAC Shouldn't Be This Hard
 date: '2026-11-22T17:09:14.676847+05:30'
-draft: true
+draft: false
 description: How I built Azure RBAC Insight, a local-first Streamlit dashboard that
   pulls role assignments from many Azure subscriptions into one filterable view, with
   live fetch or offline CSV upload.

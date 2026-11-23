@@ -11,6 +11,10 @@ tags:
 - azure
 - automation
 canonicalURL: ''
+cover:
+  image: "/images/ansible-jobs-in-the-web-hosting-platform-part-4/cover.png"
+  alt: "Cover: Ansible Jobs in the Web Hosting Platform, Part 4"
+  relative: false
 ---
 
 [Part 3](https://chinmaymjog.github.io/posts/jenkins-ansible-automation-for-a-web-hosting-platform-part-3/)
@@ -37,6 +41,8 @@ Jobs are split into two folders:
 
 The split limits blast radius. Things that change the servers or delete
 a tenant sit apart from the routine work.
+
+![Jenkins on the Jumpbox: two job folders, each job calling one Ansible playbook against the web VMs, the shared NFS and Key Vault](/images/ansible-jobs-in-the-web-hosting-platform-part-4/jenkins-jobs.png)
 
 ## Run these first
 

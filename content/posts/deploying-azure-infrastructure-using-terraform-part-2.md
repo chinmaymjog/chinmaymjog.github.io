@@ -11,6 +11,10 @@ tags:
 - infrastructure-as-code
 - hosting
 canonicalURL: ''
+cover:
+  image: "/images/deploying-azure-infrastructure-using-terraform-part-2/cover.png"
+  alt: "Cover: Deploying Azure Infrastructure Using Terraform, Part 2"
+  relative: false
 ---
 
 In [Part 1](https://chinmaymjog.github.io/posts/architecture-of-a-shared-hosting-platform-on-azure-part-1/)
@@ -63,6 +67,8 @@ Both stacks derive resource group and VNet names from the same
 together. The Platform also creates both halves of the VNet peering,
 including the Hub-to-Spoke side inside the Hub's resource group, so
 deploying a Spoke is a single `apply`.
+
+![Two Terraform stacks: shared-hub and platform, each with its own state, linked by tag lookups](/images/deploying-azure-infrastructure-using-terraform-part-2/two-stacks.png)
 
 ## No secrets in `.env` for Terraform
 

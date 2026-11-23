@@ -11,6 +11,10 @@ tags:
 - hosting
 - azure
 canonicalURL: ''
+cover:
+  image: "/images/jenkins-ansible-automation-for-a-web-hosting-platform-part-3/cover.png"
+  alt: "Cover: Jenkins + Ansible Automation for a Web Hosting Platform, Part 3"
+  relative: false
 ---
 
 [Part 1](https://chinmaymjog.github.io/posts/architecture-of-a-shared-hosting-platform-on-azure-part-1/)

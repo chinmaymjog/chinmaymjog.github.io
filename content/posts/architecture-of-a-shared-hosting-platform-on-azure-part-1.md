@@ -9,6 +9,10 @@ tags:
 - architecture
 - hosting
 canonicalURL: ''
+cover:
+  image: "/images/architecture-of-a-shared-hosting-platform-on-azure-part-1/cover.png"
+  alt: "Cover: Architecture of a Shared Hosting Platform on Azure, Part 1"
+  relative: false
 ---
 
 This is Part 1 of the series on the shared hosting platform I built on
